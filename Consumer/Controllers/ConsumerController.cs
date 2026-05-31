@@ -21,16 +21,16 @@ public class ConsumerController : ControllerBase
     [Route("sync")]
     public async Task<IActionResult> AddSyncOperation([FromBody] AddSyncOperationRequest request)
     {
-        await SyncOperationService.AddSyncOperation(request);
-        return Ok();
+        var result = await SyncOperationService.AddSyncOperation(request);
+        return Ok(result);
     }
     
     [HttpPost]
     [Route("async")]
     public async Task<IActionResult> AddAsyncOperation([FromBody] AddAsyncOperationRequest request)
     {
-        await OperationService.AddOperation(request);
-        return Accepted();
+        var result = await OperationService.AddOperation(request);
+        return Accepted(result);
     }
     
     [HttpGet]

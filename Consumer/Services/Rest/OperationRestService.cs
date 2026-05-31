@@ -16,11 +16,13 @@ public class OperationRestService : IOperationService
         this.client.BaseAddress = new Uri(apiSettings.Value.BaseUrl + "operations");
     }
 
-    public async Task AddOperation(AddAsyncOperationRequest request)
+    public async Task<Guid> AddOperation(AddAsyncOperationRequest request)
     {
         var content = JsonHelper.SerializeRequest(request);
         var result = await client.PostAsync(client.BaseAddress.ToString(), content);
         result.EnsureSuccessStatusCode();
+        var response = await result.Content.ReadAsStringAsync();
+        return JsonHelper.DeserializeResult<Guid>(response);
     }
     
     public async Task<PaginatedListDto<GetOperationsResponseDto>> GetOperations(int pageNumber, int pageSize)

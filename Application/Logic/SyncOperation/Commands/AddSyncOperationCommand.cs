@@ -6,14 +6,14 @@ using MediatR;
 
 namespace Application.Logic.SyncOperation.Commands;
 
-public class AddSyncOperationCommand : IRequest<ResponseDto<Unit>>
+public class AddSyncOperationCommand : IRequest<ResponseDto<Guid>>
 {
     public OperationTypeEnum Type { get; set; }
     public string? Payload { get; set; }
     public int TimeoutInSeconds { get; set; }
 }
 
-public class AddSyncOperationCommandHandler : IRequestHandler<AddSyncOperationCommand, ResponseDto<Unit>>
+public class AddSyncOperationCommandHandler : IRequestHandler<AddSyncOperationCommand, ResponseDto<Guid>>
 {
     private readonly IApplicationDbContext Context;
     private readonly IOperationProcessor OperationProcessor;
@@ -24,7 +24,7 @@ public class AddSyncOperationCommandHandler : IRequestHandler<AddSyncOperationCo
         OperationProcessor = operationProcessor;
     }
 
-    public async Task<ResponseDto<Unit>> Handle(AddSyncOperationCommand request, CancellationToken cancellationToken)
+    public async Task<ResponseDto<Guid>> Handle(AddSyncOperationCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -35,6 +35,7 @@ public class AddSyncOperationCommandHandler : IRequestHandler<AddSyncOperationCo
                 Payload = request.Payload,
                 Status = OperationStatusEnum.Pending,
                 CreatedAt = DateTime.UtcNow,
+                Progress = 0,
                 MaxRetries = 0,
             };
             
@@ -46,13 +47,13 @@ public class AddSyncOperationCommandHandler : IRequestHandler<AddSyncOperationCo
             var returnCode = await OperationProcessor.ProcessAsync(newOperation.Id, cts.Token);
             if (returnCode != 0)
             {
-                return ResponseDto<Unit>.Failure(returnCode);
+                return ResponseDto<Guid>.Failure(returnCode);
             }
-            return ResponseDto<Unit>.Success(Unit.Value);
+            return ResponseDto<Guid>.Success(newOperation.Id);
         }
         catch (Exception ex)
         {
-            return ResponseDto<Unit>.Failure(-4, ex.ToString());
+            return ResponseDto<Guid>.Failure(-4, ex.ToString());
         }
     }
 }

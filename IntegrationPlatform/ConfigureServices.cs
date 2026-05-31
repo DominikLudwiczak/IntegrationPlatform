@@ -1,10 +1,12 @@
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using System.Reflection;
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
+using Unchase.Swashbuckle.AspNetCore.Extensions.Extensions;
 
 namespace IntegrationPlatform;
 
@@ -18,6 +20,7 @@ public static class ConfigureServices
             x.SuppressInferBindingSourcesForParameters = true;
         }).AddJsonOptions(options =>
         {
+            options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
         });
 
         services.AddFluentValidationAutoValidation();
@@ -32,6 +35,7 @@ public static class ConfigureServices
                 Title = "Integration Platform API",
                 Version = "v1"
             });
+            options.UseInlineDefinitionsForEnums();
             options.EnableAnnotations();
             options.DescribeAllParametersInCamelCase();
             options.MapType<FileContentResult>(() => new OpenApiSchema

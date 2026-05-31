@@ -13,6 +13,7 @@ public class OperationRecordDto
     public DateTime CreatedAt { get; set; }
     public DateTime? StartedAt { get; set; }
     public DateTime? CompletedAt { get; set; }
+    public int Progress { get; set; }
     public long? ProcessingTimeMs { get; set; }
     public int RetryCount { get; set; }
     public int MaxRetries { get; set; }

@@ -38,6 +38,7 @@ public class GetOperationQueryHandler : IRequestHandler<GetOperationQuery, Respo
                 CreatedAt = operation.CreatedAt,
                 StartedAt = operation.StartedAt,
                 CompletedAt = operation.CompletedAt,
+                Progress = operation.Progress,
                 ProcessingTimeMs = operation.ProcessingTimeMs,
                 RetryCount = operation.RetryCount,
                 MaxRetries = operation.MaxRetries,

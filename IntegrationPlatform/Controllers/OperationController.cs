@@ -12,14 +12,14 @@ namespace IntegrationPlatform.Controllers;
 public class OperationController : BaseController
 {
     [HttpPost]
-    [SwaggerOperation(Summary = "Add operation", Description = "Add new oparation")]
-    [SwaggerResponse(202, "Successfully added new operation", typeof(Unit))]
+    [SwaggerOperation(Summary = "Add operation", Description = "Add new operation in async way, returns operation Id to track the operation status")]
+    [SwaggerResponse(202, "Successfully added new operation", typeof(Guid))]
     [SwaggerResponse(400, "Bad Request - The request could not be understood or was missing required parameters.", typeof(ProblemDetails))]
     public async Task<IActionResult> AddNote(AddOperationRequestApiModel model)
     {
         var command = model.Map();
         var result = await Mediator.Send(command);
-        return result.Succeeded ? Accepted() : HandleError(result);
+        return result.Succeeded ? Accepted(result.Data) : HandleError(result);
     }
     
     [HttpGet]

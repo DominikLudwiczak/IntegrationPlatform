@@ -1,3 +1,4 @@
+using Application.Common.Abstracts;
 using Application.Interfaces;
 using Domain.Entities;
 using Domain.Enums;
@@ -8,9 +9,9 @@ namespace OperationProcessor;
 public class OperationProcessorService : IOperationProcessor
 {
     private readonly IApplicationDbContext Context;
-    private readonly IEnumerable<IOperationHandler> Handlers;
+    private readonly IEnumerable<OperationHandler> Handlers;
     
-    public OperationProcessorService(IApplicationDbContext context, IEnumerable<IOperationHandler> handlers)
+    public OperationProcessorService(IApplicationDbContext context, IEnumerable<OperationHandler> handlers)
     {
         Context = context;
         Handlers = handlers;
@@ -32,7 +33,7 @@ public class OperationProcessorService : IOperationProcessor
 
         try
         {
-            var result = await handler.HandleAsync(operation, cancellationToken);
+            var result = await handler.HandleAsync(Context, operation, cancellationToken);
             await CompleteOperation(operation, result);
             return 0;
         }

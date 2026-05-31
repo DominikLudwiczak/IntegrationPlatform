@@ -6,14 +6,14 @@ using MediatR;
 
 namespace Application.Logic.Operation.Commands;
 
-public class AddOperationCommand : IRequest<ResponseDto<Unit>>
+public class AddOperationCommand : IRequest<ResponseDto<Guid>>
 {
     public OperationTypeEnum Type { get; set; }
     public string? Payload { get; set; }
     public int MaxRetries { get; set; }
 }
 
-public class AddOperationCommandHandler : IRequestHandler<AddOperationCommand, ResponseDto<Unit>>
+public class AddOperationCommandHandler : IRequestHandler<AddOperationCommand, ResponseDto<Guid>>
 {
     private readonly IApplicationDbContext Context;
     private readonly IOperationQueue Queue;
@@ -24,7 +24,7 @@ public class AddOperationCommandHandler : IRequestHandler<AddOperationCommand, R
         Queue = queue;
     }
 
-    public async Task<ResponseDto<Unit>> Handle(AddOperationCommand request, CancellationToken cancellationToken)
+    public async Task<ResponseDto<Guid>> Handle(AddOperationCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -35,17 +35,18 @@ public class AddOperationCommandHandler : IRequestHandler<AddOperationCommand, R
                 Payload = request.Payload,
                 Status = OperationStatusEnum.Pending,
                 CreatedAt = DateTime.UtcNow,
+                Progress = 0,
                 MaxRetries = request.MaxRetries,
             };
 
             Context.OperationRecords.Add(newOperation);
             await Context.SaveChangesAsync(cancellationToken);
             await Queue.EnqueueAsync(newOperation.Id, cancellationToken);
-            return ResponseDto<Unit>.Success(Unit.Value);
+            return ResponseDto<Guid>.Success(newOperation.Id);
         }
         catch (Exception ex)
         {
-            return ResponseDto<Unit>.Failure(-4, ex.ToString());
+            return ResponseDto<Guid>.Failure(-4, ex.ToString());
         }
     }
 }

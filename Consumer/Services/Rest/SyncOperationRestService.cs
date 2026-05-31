@@ -15,10 +15,12 @@ public class SyncOperationRestService : ISyncOperationService
         this.client.BaseAddress = new Uri(apiSettings.Value.BaseUrl + "sync-operations");
     }
 
-    public async Task AddSyncOperation(AddSyncOperationRequest request)
+    public async Task<Guid> AddSyncOperation(AddSyncOperationRequest request)
     {
         var content = JsonHelper.SerializeRequest(request);
         var result = await client.PostAsync(client.BaseAddress.ToString(), content);
         result.EnsureSuccessStatusCode();
+        var response = await result.Content.ReadAsStringAsync();
+        return JsonHelper.DeserializeResult<Guid>(response);
     }
 }

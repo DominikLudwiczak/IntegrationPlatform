@@ -1,4 +1,5 @@
 using Application;
+using Application.Common.Abstracts;
 using Application.Interfaces;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
@@ -31,9 +32,9 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(container =>
 {
     container.RegisterType<OperationProcessorService>().As<IOperationProcessor>();
-    container.RegisterType<DataSyncHandler>().As<IOperationHandler>();
-    container.RegisterType<ReportGenerationHandler>().As<IOperationHandler>();
-    container.RegisterType<WebhookDispatchHandler>().As<IOperationHandler>();
+    container.RegisterType<DataSyncHandler>().As<OperationHandler>();
+    container.RegisterType<ReportGenerationHandler>().As<OperationHandler>();
+    container.RegisterType<WebhookDispatchHandler>().As<OperationHandler>();
 });
 
 builder.Services.AddSingleton<IOperationQueue, InMemoryOperationQueue>();

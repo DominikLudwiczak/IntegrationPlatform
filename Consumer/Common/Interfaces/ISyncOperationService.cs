@@ -4,5 +4,5 @@ namespace Consumer.Common.Interfaces;
 
 public interface ISyncOperationService
 {
-    Task AddSyncOperation(AddSyncOperationRequest request);
+    Task<Guid> AddSyncOperation(AddSyncOperationRequest request);
 }
