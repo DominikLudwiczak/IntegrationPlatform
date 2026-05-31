@@ -60,7 +60,7 @@ http://localhost:5000/api/swagger/index.html
 ### Konsument głównego API
 
 ```text
-http://localhost:50001/swagger/index.html
+http://localhost:5001/swagger/index.html
 ```
 
 ## Zatrzymanie środowiska
