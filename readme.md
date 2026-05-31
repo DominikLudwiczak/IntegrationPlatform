@@ -70,3 +70,8 @@ Aby zatrzymać wszystkie kontenery, wykonaj:
 ```bash
 docker compose down
 ```
+
+### Uwagi
+
+W celu zasymulowania rzeczywistych warunków wykonywania operacji zastosowałem kontrolowane opóźnienia procesu. W trakcie działania poszczególnych operacji wartość postępu (progress) jest aktualizowana w sposób sztuczny, aby odzwierciedlić stopniowe wykonywanie zadania.
+Dodatkowo w wybranych scenariuszach zaimplementowałem losowe generowanie wyjątków oraz błędów wykonania. Pozwoliło mi to przetestować mechanizmy obsługi błędów, raportowania stanu operacji oraz zachowanie aplikacji w sytuacjach awaryjnych.
