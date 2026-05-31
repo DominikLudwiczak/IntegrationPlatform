@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "RFbz9brYEuyH+mUDu77mFNhQ0XdEJEI7Q5PQPOF6qbQ=",
+  "Source": "IntegrationPlatform",
+  "BasePath": "_content/IntegrationPlatform",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

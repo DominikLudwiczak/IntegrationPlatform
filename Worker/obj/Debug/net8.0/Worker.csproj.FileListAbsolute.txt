@@ -1,0 +1,17 @@
+/Users/dominikludwiczak/Documents/IntegrationPlatform/Worker/bin/Debug/net8.0/Worker.deps.json
+/Users/dominikludwiczak/Documents/IntegrationPlatform/Worker/bin/Debug/net8.0/Worker.dll
+/Users/dominikludwiczak/Documents/IntegrationPlatform/Worker/bin/Debug/net8.0/Worker.pdb
+/Users/dominikludwiczak/Documents/IntegrationPlatform/Worker/bin/Debug/net8.0/Application.dll
+/Users/dominikludwiczak/Documents/IntegrationPlatform/Worker/bin/Debug/net8.0/Domain.dll
+/Users/dominikludwiczak/Documents/IntegrationPlatform/Worker/bin/Debug/net8.0/Application.pdb
+/Users/dominikludwiczak/Documents/IntegrationPlatform/Worker/bin/Debug/net8.0/Domain.pdb
+/Users/dominikludwiczak/Documents/IntegrationPlatform/Worker/obj/Debug/net8.0/Worker.csproj.AssemblyReference.cache
+/Users/dominikludwiczak/Documents/IntegrationPlatform/Worker/obj/Debug/net8.0/Worker.GeneratedMSBuildEditorConfig.editorconfig
+/Users/dominikludwiczak/Documents/IntegrationPlatform/Worker/obj/Debug/net8.0/Worker.AssemblyInfoInputs.cache
+/Users/dominikludwiczak/Documents/IntegrationPlatform/Worker/obj/Debug/net8.0/Worker.AssemblyInfo.cs
+/Users/dominikludwiczak/Documents/IntegrationPlatform/Worker/obj/Debug/net8.0/Worker.csproj.CoreCompileInputs.cache
+/Users/dominikludwiczak/Documents/IntegrationPlatform/Worker/obj/Debug/net8.0/Worker.csproj.CopyComplete
+/Users/dominikludwiczak/Documents/IntegrationPlatform/Worker/obj/Debug/net8.0/Worker.dll
+/Users/dominikludwiczak/Documents/IntegrationPlatform/Worker/obj/Debug/net8.0/refint/Worker.dll
+/Users/dominikludwiczak/Documents/IntegrationPlatform/Worker/obj/Debug/net8.0/Worker.pdb
+/Users/dominikludwiczak/Documents/IntegrationPlatform/Worker/obj/Debug/net8.0/ref/Worker.dll
