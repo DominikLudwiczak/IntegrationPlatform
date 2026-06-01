@@ -37,13 +37,14 @@ builder.Host.ConfigureContainer<ContainerBuilder>(container =>
     container.RegisterType<WebhookDispatchHandler>().As<OperationHandler>();
 });
 
+builder.Services.AddSingleton<IErrorSimulator, ErrorSimulator>();
 builder.Services.AddSingleton<IOperationQueue, InMemoryOperationQueue>();
 builder.Services.AddSingleton<IHostedService>(sp =>
 {
     var queue = sp.GetRequiredService<IOperationQueue>();
     var scopeFactory = sp.GetRequiredService<IServiceScopeFactory>();
     var parallelism = builder.Configuration.GetValue<int>("Worker:DegreeOfParallelism", 4);
-    var timeoutSec = builder.Configuration.GetValue<int>("Worker:OperationTimeoutSeconds", 30);
+    var timeoutSec = builder.Configuration.GetValue<int>("Worker:OperationTimeoutSeconds", 100);
     return new OperationWorker(queue, scopeFactory, parallelism, TimeSpan.FromSeconds(timeoutSec));
 });
 

@@ -15,5 +15,15 @@ public class ApplicationDbContext(DbContextOptions<ApplicationDbContext> options
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
+        builder.Entity<OperationRecord>()
+            .Property(x => x.Progress)
+            .HasColumnType("int")
+            .IsRequired();
+
+        builder.Entity<OperationRecord>()
+            .ToTable(t => t.HasCheckConstraint("CK_Progress_Range", "\"Progress\" >= 0 AND \"Progress\" <= 100"));
+
+        builder.Entity<OperationRecord>()
+            .ToTable(t => t.HasCheckConstraint("CK_RetryCount", "\"RetryCount\" <= \"MaxRetries\""));
     }
 }

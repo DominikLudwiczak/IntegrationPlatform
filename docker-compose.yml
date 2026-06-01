@@ -19,33 +19,33 @@ services:
       test: 'pg_isready --username=postgres && psql --username=postgres --list'
       timeout: 10s
       retries: 20
-  integration_platform:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    restart: always
-    ports:
-      - '5000:5000'
-    environment:
-      - ConnectionStrings__DefaultConnection=Host=postgres;Database=integration_platform;User Id=postgres;Password=postgres
-      - ASPNETCORE_ENVIRONMENT=Development
-    depends_on:
-      postgres:
-        condition: service_healthy
-  consumer:
-    build:
-      context: .
-      dockerfile: Consumer/Dockerfile
-    restart: always
-    ports:
-      - '5001:5001'
-    environment:
-      - IntegrationPlatform__BaseUrl=http://integration_platform:5000/api/
-      - ASPNETCORE_ENVIRONMENT=Development
-    depends_on:
-      postgres:
-        condition: service_healthy
-      integration_platform:
-        condition: service_started
+  # integration_platform:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   restart: always
+  #   ports:
+  #     - '5000:5000'
+  #   environment:
+  #     - ConnectionStrings__DefaultConnection=Host=postgres;Database=integration_platform;User Id=postgres;Password=postgres
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  # consumer:
+  #   build:
+  #     context: .
+  #     dockerfile: Consumer/Dockerfile
+  #   restart: always
+  #   ports:
+  #     - '5001:5001'
+  #   environment:
+  #     - IntegrationPlatform__BaseUrl=http://integration_platform:5000/api/
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #     integration_platform:
+  #       condition: service_started
 volumes:
   postgres-data:

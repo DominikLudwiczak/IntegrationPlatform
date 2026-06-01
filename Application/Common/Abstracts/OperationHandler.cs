@@ -4,9 +4,10 @@ using Domain.Enums;
 
 namespace Application.Common.Abstracts;
 
-public abstract class OperationHandler()
+public abstract class OperationHandler(IErrorSimulator errorSimulator)
 {
     public OperationTypeEnum OperationType { get; set; }
+    protected readonly IErrorSimulator ErrorSimulator = errorSimulator;
 
     public abstract Task<string> HandleAsync(IApplicationDbContext context, OperationRecord operation, CancellationToken cancellationToken);
     

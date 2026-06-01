@@ -7,7 +7,7 @@ namespace Worker.Handlers;
 
 public class WebhookDispatchHandler : OperationHandler
 {
-    public WebhookDispatchHandler()
+    public WebhookDispatchHandler(IErrorSimulator errorSimulator) : base(errorSimulator)
     {
         OperationType = OperationTypeEnum.WebhookDispatch;
     }
@@ -15,7 +15,7 @@ public class WebhookDispatchHandler : OperationHandler
     public override async Task<string> HandleAsync(IApplicationDbContext context, OperationRecord operation, CancellationToken cancellationToken)
     {
         await Task.Delay(TimeSpan.FromSeconds(2), cancellationToken);
-        if (new Random().Next(0, 10) < 2)
+        if (ErrorSimulator.ShouldSimulateError())
         {
             throw new Exception("Webhook dispatch failed due to unknown error.");
         }
