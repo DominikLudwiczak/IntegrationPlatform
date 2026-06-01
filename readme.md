@@ -71,6 +71,65 @@ Aby zatrzymać wszystkie kontenery, wykonaj:
 docker compose down
 ```
 
+# Awaryjny sposób uruchomienia aplikacji
+
+Jeżeli uruchomienie aplikacji przy użyciu standardowej procedury zakończy się niepowodzeniem, można skorzystać z poniższej metody awaryjnej.
+
+## Wymagania wstępne
+
+1. Usuń wcześniej utworzone kontenery Docker związane z projektem.
+2. Otwórz plik `docker-compose.yml`.
+3. Zakomentuj sekcje:
+
+   * `integration_platform`,
+   * `consumer`.
+
+## Uruchomienie środowiska
+
+W głównym katalogu projektu uruchom polecenie:
+
+```bash
+docker compose up -d
+```
+
+Poczekaj na:
+
+* zbudowanie wymaganych obrazów Docker,
+* uruchomienie wszystkich pozostałych kontenerów.
+
+## Uruchomienie aplikacji głównej
+
+Po uruchomieniu środowiska przejdź do głównego katalogu aplikacji i wykonaj polecenie:
+
+```bash
+dotnet run
+```
+
+## Uruchomienie aplikacji Consumer
+
+Otwórz nową konsolę, pozostawiając poprzednią uruchomioną. Następnie przejdź do katalogu `Consumer` i wykonaj polecenie:
+
+```bash
+dotnet run
+```
+
+## Dostęp do aplikacji
+
+Po poprawnym uruchomieniu obu aplikacji adresy dostępu pozostają takie same jak w przypadku standardowego sposobu uruchomienia:
+
+### Główne API
+
+```text
+http://localhost:5000/api/swagger/index.html
+```
+
+### Konsument głównego API
+
+```text
+http://localhost:5001/swagger/index.html
+```
+
+
 ### Uwagi
 
 W celu zasymulowania rzeczywistych warunków wykonywania operacji zastosowałem kontrolowane opóźnienia procesu. W trakcie działania poszczególnych operacji wartość postępu (progress) jest aktualizowana w sposób sztuczny, aby odzwierciedlić stopniowe wykonywanie zadania.
